@@ -1,0 +1,6 @@
+branches:
+  only:
+    - develop
+
+build_script:
+  - ps: .\build.ps1 -Target Publish
