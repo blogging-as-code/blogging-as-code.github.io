@@ -6,9 +6,18 @@
 
 var deployToken = Argument("DeployToken", EnvironmentVariable("WYAM_DEPLOY_TOKEN"));
 var deployRemote = Argument("DeployRemote", EnvironmentVariable("WYAM_DEPLOY_REMOTE"));
+var publishFolder = "./publish";
 var target = Argument("Target", "Default");
 
 Task("Default");
+
+Task("Clean")
+    .Does(() =>
+{
+    if(DirectoryExists(publishFolder)) {
+        DeleteDirectory(publishFolder, recursive:true);
+    }
+});
 
 Task("Preview")
   .Does(() =>
@@ -21,6 +30,7 @@ Task("Preview")
 });
 
 Task("Generate")
+  .IsDependentOn("Clean")
   .Does(() =>
 {
   Wyam(new WyamSettings {
@@ -34,8 +44,6 @@ Task("Publish")
   .IsDependentOn("Generate")
   .Does(() =>
 {
-  var publishFolder = "./publish";
-
   // Get the SHA from the current commit to use in the message for the commit to master
   var sourceCommit = GitLogTip("./");
 
