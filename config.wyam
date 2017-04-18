@@ -1,0 +1,7 @@
+#recipe Blog
+
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture
+    = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+
+Settings[BlogKeys.Title] = "Blogging as Code";
+
