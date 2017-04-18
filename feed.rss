@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+	<channel>
+		<title>Blogging as Code</title>
+		<link>/</link>
+		<description>Welcome!</description>
+		<copyright>2017</copyright>
+		<pubDate>Tue, 18 Apr 2017 11:52:31 GMT</pubDate>
+		<lastBuildDate>Tue, 18 Apr 2017 11:52:31 GMT</lastBuildDate>
+		<item>
+			<title>Welcome to Blogging as Code</title>
+			<link>/posts/001-Welcome</link>
+			<description>Welcome!</description>
+			<guid isPermaLink="false">/posts/001-Welcome</guid>
+			<pubDate>Sun, 16 Apr 2017 00:00:00 GMT</pubDate>
+			<content:encoded>&lt;h2 id="welcome"&gt;Welcome!&lt;/h2&gt;
+&lt;p&gt;It's time to reboot the blog, and start publishing my experiences while getting to grips with &lt;strong&gt;infrastructure as code&lt;/strong&gt;. I will use this
+blog as a way to improve my writing, as well as to structure my thoughts so I can explain the technology in a better way to my colleagues.&lt;/p&gt;
+&lt;h2 id="why-this-name"&gt;Why this name?&lt;/h2&gt;
+&lt;p&gt;As the infrastructure engineering domain is basically built on the premise of defining every single moving part as a script or template, or &lt;em&gt;as code&lt;/em&gt; if you will,
+I felt that the first step should be to define my blog as code. As such, the source code of this blog can be found &lt;a href="https://github.com/blogging-as-code/blogging-as-code.evision.io"&gt;on GitHub&lt;/a&gt;. I hope that this will encourage you,
+the reader, to send pull requests for mistakes I make, and add issues if you want me to elaborate on something that I've written before.&lt;/p&gt;
+&lt;h2 id="how-does-it-work-then"&gt;How does it work then?&lt;/h2&gt;
+&lt;p&gt;I've implemented the blog using a static content generator called &lt;a href="https://wyam.io/"&gt;Wyam&lt;/a&gt;, which takes raw Markdown files and turns it into a static HTML website. I'm using &lt;a href="http://cakebuild.net/"&gt;Cake&lt;/a&gt; build scripts to orchestrate compiling and publishing. To actually execute these scripts whenever I commit new content to the &lt;a href="https://github.com/blogging-as-code/blogging-as-code.evision.io"&gt;GitHub repository&lt;/a&gt;, I use AppVeyor. AppVeyor calls itself &lt;strong&gt;#1 Continuous Delivery service for Windows&lt;/strong&gt;, which basically means it will monitor the repository, and when new content is added runs the Cake scripts and eventually publishes new content to GitHub pages.&lt;/p&gt;</content:encoded>
+		</item>
+	</channel>
+</rss>
