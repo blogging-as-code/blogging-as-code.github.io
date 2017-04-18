@@ -5,8 +5,8 @@
 		<link>/</link>
 		<description>Welcome!</description>
 		<copyright>2017</copyright>
-		<pubDate>Tue, 18 Apr 2017 13:33:48 GMT</pubDate>
-		<lastBuildDate>Tue, 18 Apr 2017 13:33:48 GMT</lastBuildDate>
+		<pubDate>Tue, 18 Apr 2017 13:35:14 GMT</pubDate>
+		<lastBuildDate>Tue, 18 Apr 2017 13:35:14 GMT</lastBuildDate>
 		<item>
 			<title>Welcome to Blogging as Code</title>
 			<link>/posts/001-Welcome</link>
@@ -21,7 +21,24 @@ blog as a way to improve my writing, as well as to structure my thoughts so I ca
 I felt that the first step should be to define my blog as code. As such, the source code of this blog can be found &lt;a href="https://github.com/blogging-as-code/blogging-as-code.evision.io"&gt;on GitHub&lt;/a&gt;. I hope that this will encourage you,
 the reader, to send pull requests for mistakes I make, and add issues if you want me to elaborate on something that I've written before.&lt;/p&gt;
 &lt;h2 id="how-does-it-work-then"&gt;How does it work then?&lt;/h2&gt;
-&lt;p&gt;I've implemented the blog using a static content generator called &lt;a href="https://wyam.io/"&gt;Wyam&lt;/a&gt;, which takes raw Markdown files and turns it into a static HTML website. I'm using &lt;a href="http://cakebuild.net/"&gt;Cake&lt;/a&gt; build scripts to orchestrate compiling and publishing. To actually execute these scripts whenever I commit new content to the &lt;a href="https://github.com/blogging-as-code/blogging-as-code.evision.io"&gt;GitHub repository&lt;/a&gt;, I use AppVeyor. AppVeyor calls itself &lt;strong&gt;#1 Continuous Delivery service for Windows&lt;/strong&gt;, which basically means it will monitor the repository, and when new content is added runs the Cake scripts and eventually publishes new content to GitHub pages.&lt;/p&gt;</content:encoded>
+&lt;p&gt;I've implemented the blog using a static content generator called &lt;a href="https://wyam.io/"&gt;Wyam&lt;/a&gt;, which takes raw Markdown files and turns it into a static HTML website. I'm using &lt;a href="http://cakebuild.net/"&gt;Cake&lt;/a&gt; build scripts to orchestrate compiling and publishing. To actually execute these scripts whenever I commit new content to the &lt;a href="https://github.com/blogging-as-code/blogging-as-code.evision.io"&gt;GitHub repository&lt;/a&gt;, I use AppVeyor. AppVeyor calls itself &lt;strong&gt;#1 Continuous Delivery service for Windows&lt;/strong&gt;, which basically means it will monitor the repository, and when new content is added runs the Cake scripts and eventually publishes new content to GitHub pages.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+
+var disqus_config = function () {
+this.page.identifier = '001-Welcome'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://blogging-as-code.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content:encoded>
 		</item>
 	</channel>
 </rss>
