@@ -1,0 +1,354 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>Blogging as Code - Blogging with WYAM</title>
+        <meta name="description" content="Welcome!" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="Blogging as Code" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="Blogging as Code" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="Blogging as Code" />
+        <meta name="msapplication-tooltip" content="Blogging as Code" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="Blogging as Code - Blogging with WYAM" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/posts/002-Blogging-with-wyam" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">Blogging as Code</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>Blogging with WYAM</h1>
+    <div class="meta">        
+Published on 24 April 2017<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/wyam-tooling-how-to" class="btn btn-default btn-xs">wyam tooling how-to</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<h2 id="introduction">Introduction</h2>
+<p>This blog doesn't have any moving parts at runtime. This is nothing new, people have been doing this for years using all sorts of tools. It works by generating all
+required HTML during <em>compile time</em>, which has several advantages (to me).
+I am mostly interested in two of these advantages: My blog (and all of its content) are expressed as text (or as code, if you will), and I have hardly any deployment
+dependencies. As the blog is purely static content, I can deploy it on any host. In my case, <a href="https://pages.github.com/">Github Pages</a>.</p>
+<h2 id="introducing-wyam">Introducing Wyam</h2>
+<p>I was introduced to <a href="https://wyam.io/">Wyam</a> when I was developing a <a href="http://cakebuild.net/">Cake</a> plugin for <a href="https://www.terraform.io/">Terraform</a>, aptly named <a href="https://github.com/erikvanbrakel/Cake.Terraform">Cake.Terraform</a>. Cake uses Wyam for their documentation,
+and as I wanted to align with the conventions used I created my documentation with it as well. While figuring out how it works, I found that Wyam has quite a lot of
+extension points, which are used for creating different types of output. One of them being a blog! As I've been thinking about restarting my blogging efforts for quite
+some time now, I figured I'd use this to kick it off.</p>
+<h2 id="what-i-built">What I built</h2>
+<p>Ok, <em>built</em> might be a bit strong. What I taped together fits better! Using my previous experiences, I decided to use the following tools:</p>
+<ul>
+<li><a href="https://wyam.io/">Wyam</a>, for generating my static blog</li>
+<li><a href="http://cakebuild.net/">Cake</a>, for writing the build script</li>
+<li><a href="https://www.appveyor.com/">AppVeyor</a>, for setting up continuous delivery</li>
+<li><a href="https://www.github.com/">GitHub</a>, for versioning my content</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a>, for a low cost deployment solution</li>
+</ul>
+<h2 id="how-to-do-it-yourself">How to do it yourself</h2>
+<p>I started writing this article as I want you to be able to do this just as easily. Mind you, this is not rocket science. You can find out how to do this yourself
+by going through the documentation on the tools I used.</p>
+<h3 id="set-up-a-github-repository-for-your-blog">1. Set up a GitHub repository for your blog</h3>
+<p>I assume you already have one, but if not, set it up. You will need this to store the content, as well as the compiled static blog. To use GitHub Pages, you will need to set up a repository which a specific name: <strong>[github-username]</strong>.github.io. This repository is special, as it will automatically publish any content in the <code>master</code> branch to a domain with the same name. My GitHub username is <strong>erikvanbrakel</strong>, so in my case this is <a href="https://github.com/blogging-as-code/blogging-as-code.github.io"><strong>erikvanbrakel</strong>.github.io</a>.</p>
+<p>To prevent having to use two repositories (which I did initially), I created an orphaned <code>master</code> branch which is used for publishing, and a <code>develop</code> branch for the raw content. Using the commandline, of course!</p>
+<pre><code class="language-bash"># Create a new directory for your blog, and move into it
+mkdir blog
+cd blog
+
+# initialize the git repository, add remote
+git init
+git remote add origin git&#64;github.com:[github-username]/[github-username].github.io
+
+# Add the CNAME file (used by GitHub Pages), and commit to the master branch
+touch CNAME
+git add CNAME
+git commit -m &quot;Add CNAME file&quot;
+git push origin master
+
+# create an orphaned develop branch, and clear it
+git checkout --orphan develop
+git reset --hard
+
+# Add a Readme file to the develop branch and commit it
+touch README.md
+git add README.md
+git commit -m &quot;Add README.md file&quot;
+git push origin develop
+</code></pre>
+<p>Now we're set to build out the automation to start blogging in an open, continuously delivering way.</p>
+<h3 id="set-up-wyam-and-using-cake">2. Set up Wyam and using Cake</h3>
+<p>I set up a simple Cake script which downloads Wyam so I can initialize the blog. In the same run I added a task which allows me to generate the blog and run a preview server, a built-in feature of Wyam. I'm using the <a href="https://github.com/Wyamio/Wyam">Cake.Wyam</a> addin, combined with a Wyam tools package. Both of them available on Nuget. I saved this file as <code>build.cake</code>, the default Cake filename.</p>
+<pre><code class="language-csharp">#addin nuget:?package=Cake.Wyam
+#tool nuget:?package=Wyam
+
+var target = Argument(&quot;Target&quot;, &quot;Default&quot;);
+
+Task(&quot;Default&quot;);
+
+Task(&quot;Preview&quot;)
+  .Does(() =&gt;
+{
+  Wyam(new WyamSettings {
+    Preview = true,
+    Watch = true,
+    InputPaths = new [] { new DirectoryPath(&quot;input&quot;) }
+  });
+});
+
+RunTarget(target);
+</code></pre>
+<p>You can't simply run a Cake file. It requires a bootstrapper, which is very easily added to your codebase, luckily. It's provided for download on the <a href="http://cakebuild.net/">Cake website</a>. Using the commandline as always:</p>
+<pre><code class="language-powershell">Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+</code></pre>
+<p><strong>CAUTION: ALWAYS check the contents of scripts and files downloaded from the web for malicious content!!</strong></p>
+<p>With the plumbing set up, I need a minimal configuration for Wyam. Wyam uses a C# based configuration file in the root of the project, which contains all sorts of overrides , as well as hints for Wyam on how to behave. You can use the <code>#recipe</code> directive to tell it what kind of output you want, in our case a blog. So, the configuration file will look like this initially:</p>
+<pre><code class="language-csharp">#recipe Blog
+
+// Make sure to set the DefaultThreadCurrentCulture to something that matches your date format
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture
+    = System.Globalization.CultureInfo.CreateSpecificCulture(&quot;en-GB&quot;);
+
+// Set the title of your blog
+Settings[BlogKeys.Title] = &quot;[Your blog title here]&quot;;
+</code></pre>
+<p>Yep, that's it. Nothing special. So now, it's time for the very first run. simply run the Cake script with the correct target (<code>.\build.ps1 -Target Preview</code>), and browse to <a href="http://localhost:5080.">http://localhost:5080.</a> This will present you with an empty blog using the default theme (which at the time of writing, is the one I'm using as well).</p>
+<p><img src="images/002-Blogging-with-wyam/empty-blog.png" class="img-fluid" alt="An empty blog" title="Nothing to see here... yet." /></p>
+<h3 id="adding-content">3. Adding content</h3>
+<p>Now, with this puppy going, I can start adding content. As I've specified the <code>input</code> directory as the input path for Wyam, that's where I'll have to add my posts. Wyam allows me to use Markdown to write my content, so that's exactly what I'll do! Posts will have to go into a subdirectory called posts, and using a custom header in those files
+you can specify meta data for your post such as when it's published, categorization using tags, and of course the title. I'll add a simple test post to make sure everything is working as it should:</p>
+<pre><code class="language-markdown">Title: Testing!
+Published: 01-01-2017
+Tags: Testing ignore-this
+---
+## Testing header
+
+Just testing the __markdown__ syntax _I can use_.
+</code></pre>
+<p>Wyam will automatically pick up the new file, so when refreshing the browser window I immediately see the result:</p>
+<p><img src="images/002-Blogging-with-wyam/post-added.png" class="img-fluid" alt="Content shows up" title="Now that's something!" /></p>
+<h3 id="deploying-to-github-pages">4. Deploying to GitHub Pages</h3>
+<p>As everything seems to be working locally, I'll add a task to the Cake script which takes the output (which conveniently ends up in the <code>output</code> directory) and pushes the changes to the master branch of the repository. To do this, I will need some more functionality: I have to be able to execute git commands, and I need some way to synchronize
+the existing content with the new content. Cake has a big list of addins available, and for this I can use the <a href="https://github.com/projectkudu/KuduSync.NET">Cake.Git</a> addin for git commands, and a tool called <a href="https://github.com/projectkudu/KuduSync.NET">Kudu</a> and the accompanying <a href="https://github.com/WCOMAB/Cake.Kudu">addin</a> for synchronizing the content. Implemented with Cake, it will look like this:</p>
+<pre><code class="language-csharp">#addin nuget:?package=Cake.Git
+#addin nuget:?package=Cake.Kudu
+
+#tool nuget:?package=KuduSync.NET&amp;version=1.3.1
+
+# ...
+# removed the previous tasks for brevity
+# ...
+
+var deployToken = Argument(&quot;DeployToken&quot;, EnvironmentVariable(&quot;WYAM_DEPLOY_TOKEN&quot;));
+var deployRemote = Argument(&quot;DeployRemote&quot;, EnvironmentVariable(&quot;WYAM_DEPLOY_REMOTE&quot;));
+
+Task(&quot;Generate&quot;)
+  .Does(() =&gt;
+{
+  Wyam(new WyamSettings {
+    Preview = false,
+    Watch = false,
+    InputPaths = new [] { new DirectoryPath(&quot;input&quot;) }
+  });
+});
+
+Task(&quot;Publish&quot;)
+  .IsDependentOn(&quot;Generate&quot;)
+  .Does(() =&gt;
+{
+  var publishFolder = &quot;./publish&quot;;
+
+  // Get the SHA from the current commit to use in the message for the commit to master
+  var sourceCommit = GitLogTip(&quot;./&quot;);
+
+  // Clone the repository into the publish folder
+  GitClone(deployRemote, publishFolder, new GitCloneSettings { BranchName = &quot;master&quot; });
+
+  // Synchronize the output folder with the master branch
+  Kudu.Sync(&quot;./output&quot;, publishFolder, new KuduSyncSettings { ArgumentCustomization = args=&gt;args.Append(&quot;--ignore&quot;).AppendQuoted(&quot;.git;CNAME&quot;) });
+
+  // If there are changes...
+  if (GitHasUncommitedChanges(publishFolder))
+    {
+        // Add all changes...
+        GitAddAll(publishFolder);
+
+        // And commit them
+        GitCommit(
+            publishFolder,
+            sourceCommit.Committer.Name,
+            sourceCommit.Committer.Email,
+            string.Format(&quot;AppVeyor Publish: {0}\r\n{1}&quot;, sourceCommit.Sha, sourceCommit.Message)
+        );
+
+        // Finally, push them to the repository
+        GitPush(publishFolder, deployToken, &quot;x-oauth-basic&quot;, &quot;master&quot;);
+    }
+});
+</code></pre>
+<p>When you run the <code>Publish</code> task, it will generate the output through the <code>Generate</code> task, and push the changes to the repository. Perfect! But I don't want to run this
+manually everytime I make a change. That goes against the purpose of the repository...</p>
+<h3 id="adding-appveyor-to-the-mix">5. Adding AppVeyor to the mix</h3>
+<p>I already use <a href="https://www.appveyor.com/">Appveyor</a> to build my <a href="https://github.com/erikvanbrakel/Cake.Terraform">Cake.Terraform</a> addin without any issues, so this was a logical choice. AppVeyor uses a yaml file for configuration, which aligns
+nicely with the rest of the repository. We don't need much: specify what script to run, which branches to include, and the opportunity to set environment variables. However, I prefer setting these variables using the AppVeyor web UI, as they won't change too often and make using encrypted parameters a bit easier.</p>
+<pre><code class="language-yaml"># The only build the develop branch
+branches:
+  only:
+    - develop
+
+# execute the cake script with the Publish target
+build_script:
+  - ps: .\build.ps1 -Target Publish
+</code></pre>
+<p>That's all. Now I just need to add a new project to AppVeyor (sign up with your GitHub account if you need to) and add the environment variables (<code>WYAM_DEPLOY_REMOTE</code> and <code>WYAM_DEPLOY_TOKEN</code>) and we're set!</p>
+<p><img src="images/002-Blogging-with-wyam/environment-vars.png" class="img-fluid" alt="Adding environment variables in AppVeyor" title="It's a secret to everybody..." /></p>
+<h3 id="bonus-scheduled-posts-even-though-you-can-see-them-earlier-in-the-source">6. Bonus! Scheduled posts (even though you can see them earlier in the source)</h3>
+<p>By default, Wyam only renders the posts which have a published date before on on the time you run the tool. This means that you can write posts in advance, and have them show up at the time you want. I wanted to utilize this to be able to create content in advance, without having to manually trigger the publishing. Luckily, AppVeyor allows you to schedule builds using a cron expression.</p>
+<p><img src="images/002-Blogging-with-wyam/cron-schedule.png" class="img-fluid" alt="Scheduling builds in AppVeyor" title="It's all about timing!" /></p>
+<p>This will run a scheduled build every day at noon, which effectively means that every day, new content will show up when it's scheduled and I don't have to do a thing. The only caveat is that the content will already be available in the repository, but that's not a concern to me. The goal is not to keep the content a secret, but to keep a steady schedule of new content.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.identifier = '002-Blogging-with-wyam'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://blogging-as-code.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+                        <script type="text/javascript">                
+                                // Header background                        
+                                var colors = Please.make_color({
+                                        colors_returned: 3,
+                                        saturation: .6
+                                });
+                                var t = new Trianglify({
+                                        x_gradient: colors,
+                                        y_gradient: ["#FFFFFF"]
+                                });
+                                var header = document.getElementById("intro-header");
+                                var pattern = t.generate(header.clientWidth, header.clientHeight);
+                                header.setAttribute('style', 'background-image: ' + pattern.dataUrl);                        
+                        </script>
+        </body>
+</html>
+
