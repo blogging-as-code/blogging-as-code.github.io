@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <title>Blogging as Code - wyam tooling how-to</title>
+        <title>Blogging as Code - Adding Disqus to your Wyam blog</title>
         <meta name="description" content="Welcome!" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 
@@ -28,9 +28,9 @@
         <meta name="msapplication-tooltip" content="Blogging as Code" />
         <meta name="msapplication-starturl" content="/" />
 
-        <meta property="og:title" content="Blogging as Code - wyam tooling how-to" />
+        <meta property="og:title" content="Blogging as Code - Adding Disqus to your Wyam blog" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/tags/wyam-tooling-how-to" />
+        <meta property="og:url" content="/posts/003-Adding-disqus-to-wyam" />
         <!-- TODO: More social graph meta tags -->
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -88,9 +88,17 @@
                         <div class="container">
                                 <div class="row">
                                         <div class="col-md-12">
-<div class="site-heading">
-    <h1>wyam tooling how-to</h1>
-</div>                                            </div>
+
+    
+<div class="post-heading">
+    <h1>Adding Disqus to your Wyam blog</h1>
+    <div class="meta">        
+Published on 01 May 2017<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/wyam-disqus-tooling-how-to" class="btn btn-default btn-xs">wyam disqus tooling how-to</a>
+        </div>     
+</div>
+                                        </div>
                                 </div>
                         </div>
                 </header>
@@ -99,35 +107,51 @@
                 <div class="container">
                         <div class="row">
                                 <div id="content" class="col-md-12">
-                                        <div class="container-sm-height">
-    <div class="row row-sm-height">
-        <div class="col-sm-8 right-border col-sm-height">
-                    <div class="post-list">
-            <a href="/posts/002-Blogging-with-wyam">
-                <h3 class="post-title">Blogging with WYAM</h3>
-            </a>
-            <p class="post-meta">Posted on 24 April 2017</p>            
-        </div>   
+                                        
+
+<h2 id="interaction-should-be-encouraged">Interaction should be encouraged</h2>
+<p>That's what I want to achieve with this blog. I'm a big fan of the collaborative way of working you tend to fall into when working with GitHub, and love the usage of chat tools such as Gitter or Slack. However, for a blog these tools are overkill.</p>
+<p>Blogs, since the time of their inception, have had some way of commenting on the content. Initially built-in to the framework you use, but for the past few years this has been delegated to a third party service, usually <a href="https://disqus.com">Disqus</a>.</p>
+<p>You implement Disqus by embedding a small piece of JavaScript into the markup of your page, which loads the comments from Disqus as well as the controls to leave a comment.</p>
+<h2 id="add-it-to-your-blog">Add it to your blog!</h2>
+<p>Implementing this using Wyam is quite simple. The theme system uses Razor, consisting of several views and partials. One of them, the <code>_PostFooter.cshtml</code> partial, is appended to the end of each post. This is exactly where you would expect a comments section to show up, so that's an excellent starting point.</p>
+<p>The <a href="https://help.disqus.com/customer/portal/articles/472097-universal-embed-code">Disqus documentation</a> for embedding into any HTML page is quite clear. Stripping out all unnecessary parts and comments, we end up with the following <code>_PostFooter.cshtml</code>:</p>
+<pre><code class="language-razor">&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+var disqus_config = function () {
+  &#64;* Use the full path as the ID *&#64;
+  this.page.identifier = '&#64;Model.FilePath(Keys.RelativeFilePath).FileNameWithoutExtension.FullPath';
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '[https://[disqus-site-name-here].disqus.com/embed.js]';
+  s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+</code></pre>
+<p>Don't forget to put your disqus site name at the placeholder. That's it. Put this partial view in your input directory, and you're ready to go!</p>
 
 
-            <nav>
-                <ul class="pager">
-                    <li class="previous">                
-                    </li>
-                    <li class="next">
-                    </li>
-                </ul>
-            </nav>
-            <hr class="visible-xs-block" />
-        </div>
-		
-        <div class="col-sm-4 col-sm-height">
-                <a role="button" href="/tags/wyam-disqus-tooling-how-to" class="btn btn-default btn-xs">wyam disqus tooling how-to (1)</a>
-                <a role="button" href="/tags/wyam-tooling-how-to" class="btn btn-primary btn-xs">wyam tooling how-to (1)</a>
-                <a role="button" href="/tags/introduction" class="btn btn-default btn-xs">Introduction (1)</a>
-        </div>
-    </div>
-</div>
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+this.page.identifier = '003-Adding-disqus-to-wyam'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://blogging-as-code.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
                                 </div>
                         </div>
                 </div>
