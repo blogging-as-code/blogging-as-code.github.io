@@ -1,6 +1,10 @@
 title: Adding Disqus to your Wyam blog
 published: 01-05-2017
-Tags: wyam disqus tooling how-to
+Tags:
+ - wyam
+ - disqus
+ - tooling
+ - how-to
 ---
 ## Interaction should be encouraged
 That's what I want to achieve with this blog. I'm a big fan of the collaborative way of working you tend to fall into when working with GitHub, and love the usage of chat tools such as Gitter or Slack. However, for a blog these tools are overkill.

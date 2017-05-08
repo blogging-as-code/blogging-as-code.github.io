@@ -1,6 +1,9 @@
 Title: Blogging with WYAM
 Published: 24-04-2017
-Tags: wyam tooling how-to
+Tags:
+ - wyam
+ - tooling
+ - how-to
 ---
 ## Introduction
 This blog doesn't have any moving parts at runtime. This is nothing new, people have been doing this for years using all sorts of tools. It works by generating all

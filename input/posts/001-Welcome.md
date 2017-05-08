@@ -1,6 +1,7 @@
 Title: Welcome to Blogging as Code
 Published: 16-04-2017
-Tags: Introduction
+Tags: 
+- introduction
 ---
 ## Welcome!
 

@@ -1,6 +1,11 @@
 Title: Introducing terraform-provider-sumologic
 Published: 08-05-2017
-Tags: terraform plugin sumologic golang announcement
+Tags: 
+ - terraform
+ - plugin
+ - sumologic
+ - golang
+ - announcement
 ---
 I started writing a [Terraform provider for Sumologic][0] a while ago, but parked it because we were not at the point of implementing in our environments. 
 
