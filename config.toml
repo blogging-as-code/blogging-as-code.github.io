@@ -1,0 +1,10 @@
+baseURL = "https://blog.smoothfriction.nl/"
+languageCode = "en-us"
+title = "Blogging as Code"
+
+[params]
+twitter = "erikvanbrakel"
+github = "erikvanbrakel"
+linkedin = "erikvanbrakel"
+author = "Erik van Brakel"
+subtitle = "My journey in cloud operations and life in general"
